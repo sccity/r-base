@@ -1,0 +1,20 @@
+version: '3'
+services:
+  r-base:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sccity/r-base:beta
+    container_name: r-base
+    volumes:
+      - "/etc/sccity/r-base-jobs:/etc/cron.d/rjobs:ro"
+      - "/etc/sccity/r-base-my.cnf:/root/.my.cnf:ro"
+    environment:
+      - TZ=America/Denver
+    privileged: true
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1GB
